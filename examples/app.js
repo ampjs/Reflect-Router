@@ -32,6 +32,16 @@ var AnotherTestRoute = React.createClass({
     }
 });
 
+var NoHashTestRoute = React.createClass({
+    render: function() {
+        return (
+            <div className="test-class">
+                No Hash Test Route
+            </div>
+        )
+    }
+});
+
 var Middleware = React.createClass({
     handle: function() {
         return false;
@@ -52,6 +62,7 @@ var Routes = React.createClass({
                 <Route path="" component={BaseRoute} />
                 <Route path="test" component={TestRoute}>
                     <Route path="another" middleware={Middleware} component={AnotherTestRoute} />
+                    <Route path="no-hash" component={NoHashTestRoute} />
                     <Route path="secondary" component={AnotherTestRoute}>
                         <Route path="deep" component={AnotherTestRoute} />
                     </Route>
