@@ -10,7 +10,7 @@ var BaseRoute = React.createClass({
                     Home Page
                 </div>
                 <div>
-                    <a href="" data-route="named">
+                    <a data-route="named">
                         Link To A Named Route
                     </a>
                 </div>
