@@ -6,7 +6,24 @@ var BaseRoute = React.createClass({
     render: function() {
         return (
             <div className="test-class">
-                Home Page
+                <div>
+                    Home Page
+                </div>
+                <div>
+                    <a data-route="named">
+                        Link To A Named Route
+                    </a>
+                </div>
+            </div>
+        )
+    }
+});
+
+var NamedRoute = React.createClass({
+    render: function() {
+        return (
+            <div className="test-class">
+                A Named Route
             </div>
         )
     }
@@ -67,6 +84,7 @@ var Routes = React.createClass({
                         <Route path="deep" component={AnotherTestRoute} />
                     </Route>
                 </Route>
+                <Route path="a-name" name="named" component={NamedRoute} />
             </Router>
         );
     }
