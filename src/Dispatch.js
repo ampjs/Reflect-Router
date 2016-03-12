@@ -7,8 +7,9 @@ class Dispatch extends React.Component {
 
         document.addEventListener('click', this.handleClick.bind(this), false);
 
-        this.origin     = window.location.pathname;
-        this.name       = 'Dispatch';
+        this.origin         = window.location.pathname;
+        this.name           = 'Dispatch';
+        this.inCollection   = false;
 
         this.History    = new History;
         this.History.assign(this);
@@ -41,20 +42,36 @@ class Dispatch extends React.Component {
         this.inRouteCollection((theRoute) => {
             this.currentRoute = theRoute;
             this.to();
+        }).notInRouteCollection(() => {
+            window.history.pushState('', '', this.click);
         });
     }
 
-    inRouteCollection(callback) {
-        for(var i in this.Router.RouteCollection.all()) {
-            var RouteCollection = this.Router.RouteCollection,
-                RouteCollection = RouteCollection.where('path', this.click.replace('#', '')),
-                RouteCollection = RouteCollection.orWhere('name', this.click.replace('#', ''));
+    check() {
+        this.inRouteCollection((theRoute) => {
+            this.currentRoute = theRoute;
+        });
+    }
 
-            if(!RouteCollection.isEmpty()) {
-                var theRoute = RouteCollection.first();
-                this.click = theRoute.path;
-                return callback(theRoute);
-            }
+    notInRouteCollection(callback) {
+        if(!this.inCollection) {
+            callback()
+        }
+
+        return this;
+    }
+
+    inRouteCollection(callback) {
+        this.inCollection = false;
+
+        var RouteCollection = this.Router.RouteCollection,
+            RouteCollection = RouteCollection.where('path', this.click.replace('#', '')),
+            RouteCollection = RouteCollection.orWhere('name', this.click.replace('#', ''));
+
+        if(!RouteCollection.isEmpty()) {
+            var theRoute = RouteCollection.first();
+            this.inCollection = true;
+            callback(theRoute);
         }
 
         return this;
@@ -74,7 +91,6 @@ class Dispatch extends React.Component {
         }
 
         this.do();
-
         e.preventDefault();
     }
 }
