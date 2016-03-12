@@ -33,7 +33,7 @@ class Router extends React.Component {
     }
 
     locationChange() {
-        this.Dispatch.History.check();
+        this.Dispatch.check();
 
         this.setState({
             route: this.Dispatch.click

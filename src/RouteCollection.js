@@ -5,8 +5,6 @@ class RouteCollection extends ReflectCollection {
     constructor(data) {
         super(data);
 
-        console.log(ReflectCollection);
-
         this.schema(['path', 'Route', 'component', 'name'], true);
     }
 

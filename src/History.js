@@ -16,16 +16,6 @@ class History extends React.Component {
         return this;
     }
 
-    check() {
-        this.Dispatch.click = this.location;
-
-        this.Dispatch.inRouteCollection((theRoute) => {
-            this.Dispatch.currentRoute = theRoute;
-        });
-
-        return this.Dispatch;
-    }
-
     get location() {
         if(this.locationHash) {
             return this.locationHash;
