@@ -9,7 +9,8 @@ class Route extends React.Component {
 Route.propTypes = {
     path: React.PropTypes.string.isRequired,
     component: React.PropTypes.func.isRequired,
-    middleware: React.PropTypes.func
-}
+    middleware: React.PropTypes.func,
+    name: React.PropTypes.string
+};
 
 export default Route;

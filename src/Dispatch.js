@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from './index.js';
 import History from './History.js';
 
 class Dispatch extends React.Component {
@@ -46,28 +45,19 @@ class Dispatch extends React.Component {
     }
 
     inRouteCollection(callback) {
-        for(var i in this.Router.Collection.get) {
-            var theRoute = this.Router.Collection.get[i];
-            if(this._routeMatches(theRoute)) {
+        for(var i in this.Router.RouteCollection.all()) {
+            var RouteCollection = this.Router.RouteCollection,
+                RouteCollection = RouteCollection.where('path', this.click.replace('#', '')),
+                RouteCollection = RouteCollection.orWhere('name', this.click.replace('#', ''));
+
+            if(!RouteCollection.isEmpty()) {
+                var theRoute = RouteCollection.first();
+                this.click = theRoute.path;
                 return callback(theRoute);
             }
         }
 
         return this;
-    }
-
-    _routeMatches(theRoute) {
-        switch(this.click.replace('#', '')) {
-            case theRoute.path:
-                return true;
-                break;
-            case theRoute.name:
-                this.click = theRoute.path;
-                return true;
-                break;
-            default:
-                return false;
-        }
     }
 
     handleClick(e) {

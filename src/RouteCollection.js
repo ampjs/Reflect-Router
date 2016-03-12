@@ -1,23 +1,23 @@
 import React from 'react';
+import ReflectCollection from 'reflect-collection';
 
-class Collection extends React.Component {
-    constructor(props) {
-        super(props);
+class RouteCollection extends ReflectCollection {
+    constructor(data) {
+        super(data);
 
-        this.collection = [];
-    }
+        console.log(ReflectCollection);
 
-    get get() {
-        return this.collection;
+        this.schema(['path', 'Route', 'component', 'name'], true);
     }
 
     create(children, parent) {
-        var routes = React.Children;
+        var routes = React.Children,
+            parent = parent || null;
 
         routes.forEach(children, function(child, childCount) {
             var current = this._childObject(child, parent);
 
-            this.extend(current)
+            this.add(current);
 
             if(childCount > 0) {
                 this.create(child.props.children, current);
@@ -47,12 +47,6 @@ class Collection extends React.Component {
             name: child.props.name
         };
     }
-
-    extend(item) {
-        this.collection.push(item);
-
-        return this;
-    }
 }
 
-export default Collection;
+export default RouteCollection;

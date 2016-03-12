@@ -1,20 +1,12 @@
 import React from 'react';
-import Route from './Route.js';
-import Collection from './Collection.js';
-import Dispatch from './Dispatch.js';
-import Middleware from './Middleware.js';
 
 class Router extends React.Component {
     constructor(props) {
         super(props);
 
-        this.name = 'Router';
+        this.displayName = 'ReflectRouter';
 
         window.addEventListener('popstate', this.locationChange.bind(this), false);
-
-        this.Collection = new Collection;
-        this.Dispatch   = new Dispatch;
-        this.Middleware = new Middleware;
 
         return this;
     }
@@ -26,19 +18,10 @@ class Router extends React.Component {
             ':uuid': '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
         };
 
-        this.Collection.create(this.props.children, null);
-        this.Dispatch.assign(this).do();
-
         return this;
     }
 
     locationChange() {
-        this.Dispatch.History.check();
-
-        this.setState({
-            route: this.Dispatch.click
-        });
-
         return this;
     }
 
@@ -56,21 +39,11 @@ class Router extends React.Component {
     }
 
     render() {
-        if(typeof this.Dispatch.currentRoute === 'undefined') {
-            return (<span></span>);
-        }
-
-        var current = this.Dispatch.currentRoute;
-
-        if(this.Middleware.use(current.Route)) {
-            return (<this.Middleware.component />);
-        };
-
-        return (<current.component />);
+        return (<span>Reflect Router</span>);
     }
 }
 
 Router.propTypes = {};
 Router.defaultProps = {};
 
-export default { Router, Route };
+export default { Router };
