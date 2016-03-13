@@ -7,7 +7,7 @@ class History extends React.Component {
     }
 
     assign(dispatcher) {
-        if(dispatcher.name === 'Dispatch') {
+        if(dispatcher instanceof Dispatch) {
             this.Dispatch = dispatcher
         } else {
             console.log('History.assign will only accept a Dispatch instance.');

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router, Route } from './ReflectRouter.js';
 import History from './History.js';
 
 class Dispatch extends React.Component {
@@ -22,7 +23,7 @@ class Dispatch extends React.Component {
     }
 
     assign(router) {
-        if(router.name === 'Router') {
+        if(router instanceof Router) {
             this.Router = router
         } else {
             console.log('Dispatch.assign will only accept a Router instance.');
